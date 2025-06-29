@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const getMyCourses = (userId: string) => {
     return axios.get(
-        enviroment.apiUrl + '/courses/' + userId,
+        enviroment.apiUrl + '/user/' + userId,
         {
             headers: { "Content-Type": "application/json" }
         }

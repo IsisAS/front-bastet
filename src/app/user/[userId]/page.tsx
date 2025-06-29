@@ -10,7 +10,7 @@ export default function Page() {
       <h2 className="page-title">Meus cursos</h2>
       {isAuthorized && !loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {courses.map((course) => (
+          {courses.length && courses?.map((course) => (
             <Curso key={course.id} data={course} />
           ))}
         </div>

@@ -13,6 +13,13 @@ export function Header() {
         }
     }, []);
 
+    const logout = () => {
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        setUserId(null);
+        window.location.href = "/";
+    }
+
     return (
         <header className="layout-guide h-[16rem] flex flex-col justify-end">
             <h1 className="text-5xl font-bold py-5">
@@ -25,6 +32,9 @@ export function Header() {
                 <Link className="text-indigo-600" href="/auth">Fazer login</Link>
                 {userId && (
                     <Link className="text-indigo-600" href={`/user/${userId}`}>Meus cursos</Link>
+                )}
+                {userId && (
+                    <button className="text-indigo-600 cursor-pointer" onClick={logout}>Sair</button>
                 )}
             </menu>
         </header>

@@ -1,15 +1,20 @@
 "use client"
 import { useEffect, useState } from "react";
-import { getAllCourses } from "./course.service";
+import { getAllCourses, registerInCourse } from "./course.service";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export function useCourse() {
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(true);
+    const router = useRouter();
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+
 
     useEffect(() => {
         getCourses();
     }, []);
-    
+
     const getCourses = async () => {
         try {
             const response = await getAllCourses();
@@ -21,8 +26,21 @@ export function useCourse() {
         }
     }
 
+    const register = async (courseId: string) => {
+        try {
+            const response = await registerInCourse(courseId, user.id);
+            if (response.data) {
+                toast.success("Inscrição realizada com sucesso!");
+                router.push(`/user/${user.id}`);
+            }
+        } catch (error) {
+            toast.error("Erro ao se inscrever no curso");
+        }
+    }
+
     return {
         courses,
-        loading
+        loading,
+        register
     }
 }

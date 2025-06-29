@@ -14,7 +14,7 @@ export const registerInCourse = async (courseId: string, userId: string) => {
     }, {
         headers: {
             "Content-Type": "application/json",
-            "Bearer Authorization": `Bearer ${localStorage.getItem('token')}`
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
         }
     });
 }

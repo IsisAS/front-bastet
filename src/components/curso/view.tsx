@@ -1,8 +1,11 @@
+import { useCourse } from "@/app/course/course";
 import { CourseInterface } from "@/app/course/course.interface"
 import { formatDate } from "@/utils/formatDate"
 import Image from "next/image"
 
 export default function CursoView({ data }: { data: CourseInterface }) {
+    const { register } = useCourse();
+
     return <div className="border flex-1 flex flex-col">
         <figure className="relative aspect-video">
             <Image src={data.cover} alt={data.name} fill />
@@ -20,7 +23,7 @@ export default function CursoView({ data }: { data: CourseInterface }) {
             data.isEnrolled ? data.enrollmentCancelled ?
                 <p className="bg-red-500 p-4 text-center">Inscrição cancelada</p> :
                 <button className="text-center p-4 bg-slate-300 hover:bg-slate-400">Cancelar inscrição</button> :
-                <button className="text-center p-4 bg-indigo-500 hover:bg-indigo-600 text-white">Fazer inscrição</button>
+                <button className="text-center p-4 bg-indigo-500 hover:bg-indigo-600 text-white" onClick={() => register(data.id)}>Fazer inscrição</button>
         }
     </div>
 }

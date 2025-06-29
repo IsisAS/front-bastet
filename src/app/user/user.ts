@@ -20,20 +20,20 @@ export function useUser() {
         } else {
             setIsAuthorized(true);
         }
-    }, [params.id, router]);
+    }, [params.userId, router]);
 
     useEffect(() => {
-        // getCourses();
-    }, [courses])
+        getCourses();
+    }, [])
 
     const getCourses = async () => {
         try {
-            const response = await getMyCourses(params.id as string);
-            if (!response.data) {
+            const response = await getMyCourses(params.userId as string);
+            if (!response.data.enrollments) {
                 toast("Não há cursos cadastrados");
                 return;
             }
-            setCourses(response.data);
+            setCourses(response.data.course);
         } catch (error) {
             console.log(error)
             toast("Erro ao buscar cursos");
