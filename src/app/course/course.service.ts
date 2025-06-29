@@ -6,3 +6,15 @@ export const getAllCourses = async () => {
         headers: { "Content-Type": "application/json" }
     });
 }
+
+export const registerInCourse = async (courseId: string, userId: string) => {
+    return axios.post(enviroment.apiUrl + '/courses/register', {
+        courseId: courseId,
+        userId: userId
+    }, {
+        headers: {
+            "Content-Type": "application/json",
+            "Bearer Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+    });
+}

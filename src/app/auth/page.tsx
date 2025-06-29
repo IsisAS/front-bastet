@@ -18,7 +18,7 @@ export default function Page() {
           <input type="password" required name="senha" id="senha" className="border h-10 rounded-xl focus:outline-none focus:border-indigo-300 px-4 py-2" />
         </div>
         <div className="flex flex-row justify-between items-end">
-          <Link href="/cadastro" className="my-3">Fazer cadastro</Link>
+          <Link href="/register" className="my-3">Fazer cadastro</Link>
           {loading ? (
             <div className="flex items-center justify-center">
               <div className="w-6 h-6 border-4 border-t-indigo-500 border-indigo-300 rounded-full animate-spin"></div>
