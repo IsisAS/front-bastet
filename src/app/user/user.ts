@@ -34,6 +34,7 @@ export function useUser() {
             const course = response.data.course.map((item: CourseInterface) => ({
                 ...item,
                 isEnrolled: response.data.enrollments.some((enrollment: any) => enrollment.courseId === item.id),
+                isEnrollmentCanceled: response.data.enrollments.some((enrollment: any) => enrollment.courseId === item.id && enrollment.isEnrollmentCanceled),
             }))
          
             setCourses(course);

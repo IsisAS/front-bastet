@@ -1,8 +1,8 @@
 "use client"
 import { useEffect, useState } from "react";
-import { getAllCourses, registerInCourse } from "./course.service";
-import toast from "react-hot-toast";
+import { getAllCourses, registerInCourse, cancelCouse } from "./course.service";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export function useCourse() {
     const [courses, setCourses] = useState([]);
@@ -38,9 +38,22 @@ export function useCourse() {
         }
     }
 
+    const cancel = async (courseId: string) => {
+        try {
+            const response = await cancelCouse(courseId, user.id);
+            if (response.data) {
+                toast.success("Inscrição cancelada com sucesso!");
+                router.push(`/user/${user.id}`);
+            }
+        } catch (error) {
+            toast.error("Erro ao cancelar inscrição no curso");
+        }
+    }
+
     return {
         courses,
         loading,
-        register
+        register,
+        cancel
     }
 }
