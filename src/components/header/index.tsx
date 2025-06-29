@@ -7,7 +7,7 @@ export function Header() {
     const [userId, setUserId] = useState<string | null>(null);
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("user") || "{}");
+        const user = typeof window !== "undefined" && JSON.parse(localStorage.getItem("user") || "{}");
         if (user?.id) {
             setUserId(user.id);
         }

@@ -13,18 +13,16 @@ export function useUser() {
     const params = useParams();
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        const user = localStorage.getItem('user');
+        const token = typeof window !== "undefined" && localStorage.getItem("token");
+        const user = typeof window !== "undefined" && localStorage.getItem("user");
+
         if (!token || !user) {
             router.push('/auth');
         } else {
             setIsAuthorized(true);
+            getCourses();
         }
     }, [params.userId, router]);
-
-    useEffect(() => {
-        getCourses();
-    }, [])
 
     const getCourses = async () => {
         try {
@@ -33,7 +31,12 @@ export function useUser() {
                 toast("Não há cursos cadastrados");
                 return;
             }
-            setCourses(response.data.course);
+            const course = response.data.course.map((item: CourseInterface) => ({
+                ...item,
+                isEnrolled: response.data.enrollments.some((enrollment: any) => enrollment.courseId === item.id),
+            }))
+         
+            setCourses(course);
         } catch (error) {
             console.log(error)
             toast("Erro ao buscar cursos");

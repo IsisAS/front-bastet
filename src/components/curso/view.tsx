@@ -6,6 +6,7 @@ import Image from "next/image"
 export default function CursoView({ data }: { data: CourseInterface }) {
     const { register } = useCourse();
 
+    console.log("DATA", data);
     return <div className="border flex-1 flex flex-col">
         <figure className="relative aspect-video">
             <Image src={data.cover} alt={data.name} fill />
