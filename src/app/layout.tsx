@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Link from "next/link";
 import { Toaster } from "react-hot-toast";
+import { Header } from "@/components/header";
 import "./globals.css";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,15 +19,7 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={inter.className}>
         <div className="flex min-h-screen flex-col gap-10">
-          <header className="layout-guide h-[16rem] flex flex-col justify-end">
-            <h1 className="text-5xl font-bold py-5"><Link href="/" className="text-indigo-800 hover:text-indigo-900">Bastet</Link></h1>
-            <p>Uma nova plataforma de cursos</p>
-            <menu className="flex flex-row gap-4">
-              <Link className="text-indigo-600" href="/register">Fazer cadastro</Link>
-              <Link className="text-indigo-600" href="/auth">Fazer login</Link>
-              <Link className="text-indigo-600" href="/usuario/will">Meus cursos</Link>
-            </menu>
-          </header>
+          <Header />
           <div className="layout-guide flex-1">
             <Toaster position="bottom-center" />
             {children}

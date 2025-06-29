@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { login } from "./auth.service";
+import { useRouter } from "next/navigation";
 
 export function useAuth() {
     const [loading, setLoading] = useState(false);
+    const navigate = useRouter();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -22,7 +24,12 @@ export function useAuth() {
 
         try {
             const response = await login(email, senha);
-            console.log("Login bem-sucedido:", response);
+            if (response.data) {
+                const { token, ...user } = response.data;
+                localStorage.setItem("token", token);
+                localStorage.setItem("user", JSON.stringify(user));
+                navigate.push(`/user/${user.id}`);
+            }
         } catch (error) {
             console.error("Erro ao fazer login:", error);
         } finally {
